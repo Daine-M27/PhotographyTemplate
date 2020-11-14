@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+    p Please use the form below to send us a message!      
+
+    if(message)
+      p=message
+
+    form.form(action="/email", method="POST")
+      .form-group
+        label(for="firstName") Enter your first name:
+        br
+        input.form-control.form-control(type="text", name="firstName", id="firstName", required)
+        br
+        label(for="emailAddress") Enter your email address:
+        br
+        input.form-control(type="email", name="emailAddress", id="emailAddress", required)
+        br
+        label(for="message") Message:
+        br
+        textarea.form-control( name="comment",id="messageBox", rows="6", cols="85", required)              
+        br
+        input.btn-lg.btn(type="submit", value="Submit")
