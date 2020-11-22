@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1= title
+    form(method='POST' action='/upload' enctype='multipart/form-data')
+        div
+            label Select picture:
+            input(type='file' name='gallery_img')
+            label(for='folders') Choose a folder:
+            select#cars(name='folders')
+                option(value='family') Family
+                option(value='kids') Kids
+                option(value='newborn') New Born
+                option(value='smokebombs') Smoke Bombs
+                option(value='petsEvents') Pets and Events
+        div
+            input(type='submit' name='btn_upload_gallery_img' value='Upload')
