@@ -13,7 +13,7 @@ router.post('/', function(req, res, next) {
     async function sendMail() {
         //send mail        
         await mail({
-          emailAddress: process.env.USER_NAME,
+          emailAddress: process.env.EMAIL_ADDRESS,
           subject: "Lollipops & Rainbow Contact Form",
           text: `
           Message From: ${req.body.firstName}
