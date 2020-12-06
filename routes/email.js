@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function(req, res, next) {
     mail({
         emailAddress: process.env.EMAIL_ADDRESS,
-        subject: "Lollipops & Rainbow Contact Form",
+        subject: "Lollipops & Rainbows Contact Form",
         text: `
         Message From: ${req.body.firstName}
         Email Address: ${req.body.emailAddress}
