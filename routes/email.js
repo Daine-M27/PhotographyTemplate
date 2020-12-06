@@ -9,20 +9,15 @@ router.get('/', function (req, res, next) {
   })
   
 router.post('/', function(req, res, next) {
-    
-    async function sendMail() {
-        //send mail        
-        await mail({
-          emailAddress: process.env.EMAIL_ADDRESS,
-          subject: "Lollipops & Rainbow Contact Form",
-          text: `
-          Message From: ${req.body.firstName}
-          Email Address: ${req.body.emailAddress}
-          Message Body: ${req.body.message}`
-        });
-    } 
-
-    sendMail().then(() => {
+    mail({
+        emailAddress: process.env.EMAIL_ADDRESS,
+        subject: "Lollipops & Rainbow Contact Form",
+        text: `
+        Message From: ${req.body.firstName}
+        Email Address: ${req.body.emailAddress}
+        Message Body: ${req.body.message}`
+      })
+    .then(() => {
         res.render("contactSubmit", { title: "Message Sent", message: "Thank you for your support!" });
     }).catch((error) => {
         console.log(error)
