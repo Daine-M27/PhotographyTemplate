@@ -1,0 +1,45 @@
+extends layout
+
+block content
+    h1= title
+    br
+    h3 Gallery File Upload
+    form.form(action="/manage", method="POST", enctype="multipart/form-data")
+        .form-group
+            label(for=file) Select picture:
+            br
+            input.form-control(type="file" name="image")
+            br
+            label(for="folders") Choose a folder:
+            br
+            select.form-control( name="folders" )
+                option(value="family") Family
+                option(value="kids") Kids
+                option(value="newborn") New Born
+                option(value="smokebombs") Smoke Bombs
+                option(value="petsEvents") Pets and Events
+            br
+            input.btn-lg.btn(type="submit" value="submit")
+    br
+    h3 Edit Gallery
+    form.form(action="/manage", method="Delete", enctype="multipart/form-data")
+        .form-group            
+            label(for="folders") Choose a folder:
+            br
+            select.form-control( name="folders" )
+                option(value="family") Family
+                option(value="kids") Kids
+                option(value="newborn") New Born
+                option(value="smokebombs") Smoke Bombs
+                option(value="petsEvents") Pets and Events
+            br
+            //- render gallery with controls for order and delete once folder is selected
+            input.btn-lg.btn(type="submit" value="submit")
+    br
+    h3 Gallery Music Upload
+    form.form(action="/manage/music" method="POST", enctype="multipart/form-data")
+        .form-group
+            label(for=music) Select MP3
+            br
+            input.form-control(type="file" name="music")
+            input.btn-lg.btn(type="submit" value="submit")

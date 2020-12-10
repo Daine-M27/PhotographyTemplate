@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const multer = require('multer');
+//const multer = require('multer');
 const path = require('path');
 const fileUpload = require('express-fileupload');
 
 
 
 router.get('/', (req, res) => {
-    res.render('upload', { title: 'Upload' });
+    res.render('manage', { title: 'Site Manager' });
 })
 
 router.post('/', (req, res) => {
@@ -19,14 +19,41 @@ router.post('/', (req, res) => {
     
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       let image = req.files.image;
-    
+      
+      // console.log(req.body.folders);
+
       // Use the mv() method to place the file somewhere on your server
-      image.mv(path.resolve(__dirname, `../public/images/${image.name}`), function(err) {
+      image.mv(path.resolve(__dirname, `../public/images/${req.body.folders}/${image.name}`), function(err) {
         if (err)
           return res.status(500).send(err);
     
         res.send('File uploaded!');
       });
+});
+
+router.post('/delete', (req, res) => {
+  // use image name and folder name to find and delete with fs
+  res.send('Image deleted!')
+})
+
+router.post('/music', (req, res) => {
+  // console.log(req.files.image)
+  if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('No files were uploaded.');
+    }
+  
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let music = req.files.music;
+    music.name = 'mainTrack.mp3'
+    // console.log(req.body.folders);
+
+    // Use the mv() method to place the file somewhere on your server
+    music.mv(path.resolve(__dirname, `../public/music/${music.name}`), function(err) {
+      if (err)
+        return res.status(500).send(err);
+  
+      res.send('File uploaded!');
+    });
 });
 
 
