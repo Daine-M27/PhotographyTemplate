@@ -4,6 +4,8 @@ const fs = require('fs');
 //const multer = require('multer');
 const path = require('path');
 const fileUpload = require('express-fileupload');
+const fileName = '../public/javascripts/gallery'
+const galleries = require(fileName);
 
 
 
@@ -24,14 +26,22 @@ router.post('/', (req, res) => {
 
       // Use the mv() method to place the file somewhere on your server
       image.mv(path.resolve(__dirname, `../public/images/${req.body.folders}/${image.name}`), function(err) {
-        if (err)
+        if (err){
           return res.status(500).send(err);
-    
+        }
+        // work out order of array, and folder names coming from form.
+        const order =  1;
+        // update galleries json
+        galleries[req.body.folders].push(
+            {"imageName":image.name, "galleryOrder":order }
+        )
+        
+        fs.writeFileSync(filename, JSON.stringify(galleries));
         res.send('File uploaded!');
       });
 });
 
-router.post('/delete', (req, res) => {
+router.post('/edit', (req, res) => {
   // use image name and folder name to find and delete with fs
   res.send('Image deleted!')
 })
