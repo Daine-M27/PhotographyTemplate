@@ -46,9 +46,9 @@ router.post('/', (req, res) => {
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       let image = req.files.image;
 
-      //let galleryPosition = req.files.position
+      let galleryPosition = req.body.orderNumber
       
-      // console.log(req.body.folders);
+      console.log(galleryPosition);
 
       // Use the mv() method to place the file somewhere on your server
       image.mv(path.resolve(__dirname, `../public/images/${req.body.folders}/${image.name}`), function(err) {
@@ -56,11 +56,12 @@ router.post('/', (req, res) => {
           return res.status(500).send(err);
         }
         
-
+        galleries[req.body.folders].splice(galleryPosition-1, 0, {"imageName":image.name})
         // update galleries json
-        galleries[req.body.folders].push(
-            {"imageName":image.name }
-        )
+        // galleries[req.body.folders].push(
+        //     {"imageName":image.name }
+        // )
+
         console.log(galleries);
         const storeData = (data) => {
           try {
