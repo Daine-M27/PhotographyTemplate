@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/family', function(req, res, next) {
-  // send galley images to the res.render function 
+  // send gallery images to the res.render function 
   // create mixins or components to be used to build gallery on pug page
   // do for all with reusable logic based on corresponding folder
   res.render('index', { title: 'family' });

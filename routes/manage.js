@@ -1,11 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-//const multer = require('multer');
+// const multer = require('multer');
 const path = require('path');
-const fileUpload = require('express-fileupload');
-const fileName = '../public/javascripts/gallery'
-const galleries = require(fileName);
+// const fileUpload = require('express-fileupload');
+
+const filePath = '../public/javascripts/gallery'
+// const galleries = require(fileName);
+const readJson = (path, cb) => {
+  fs.readFile(require.resolve(path), (err, data) => {
+    if (err) {
+      cb(err)
+    } else {
+      cb(null, JSON.parse(data))
+    }
+  })
+}
 
 
 
@@ -14,7 +24,9 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    console.log(req.files.image)
+  readJson(filePath, (err, galleries) => {
+    console.log(galleries);
+    // console.log(req.files.image)
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
       }
@@ -35,10 +47,22 @@ router.post('/', (req, res) => {
         galleries[req.body.folders].push(
             {"imageName":image.name, "galleryOrder":order }
         )
+        console.log(galleries);
+        const storeData = (data) => {
+          try {
+            fs.writeFileSync("public\\javascripts\\gallery.json", JSON.stringify(data))
+          } catch (err) {
+            console.error(err)
+          }
+        }
+        storeData(galleries);
         
-        fs.writeFileSync(filename, JSON.stringify(galleries));
+        //fs.writeFileSync("../public/javascripts/galleries.json", JSON.stringify(galleries));
         res.send('File uploaded!');
       });
+
+  })
+   
 });
 
 router.post('/edit', (req, res) => {
