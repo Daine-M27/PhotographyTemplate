@@ -1,15 +1,1 @@
-{
-    "family": [
-        {
-            "imageName": "Youth Sports Equipment_0.jpg"
-        }
-    ],
-    "kids": [
-        {
-            "imageName": "image.jpg"
-        }
-    ],
-    "newBorn": [],
-    "smokeBombs": [],
-    "petsEvents": []
-}
+{"family":[],"kids":[{"imageName":"image.jpg"}],"newBorn":[],"smokeBombs":[],"petsEvents":[]}
