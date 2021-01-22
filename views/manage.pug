@@ -6,6 +6,7 @@ block content
     h3 Gallery File Upload
     form.form(action="/manage", method="POST", enctype="multipart/form-data")
         .form-group
+            input(type="hidden" value=galleryOrder)
             label(for=file) Select picture:
             br
             input.form-control(type="file" name="image")

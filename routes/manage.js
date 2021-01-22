@@ -20,7 +20,19 @@ const readJson = (path, cb) => {
 
 
 router.get('/', (req, res) => {
-    res.render('manage', { title: 'Site Manager' });
+  const galleryCounts = {};
+  // get number of images in each gallery to build order pulldown
+  readJson(filePath, (err, galleries) => {
+    let keys = Object.keys(galleries);
+    keys.forEach(key => {
+      galleryCounts[key] = galleries[key].length
+    });
+    console.log(galleryCounts);
+    res.render('manage', { title: 'Site Manager', galleryOrder: JSON.stringify(galleryCounts) });
+  })
+
+    
+    
 })
 
 router.post('/', (req, res) => {
@@ -33,6 +45,8 @@ router.post('/', (req, res) => {
     
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       let image = req.files.image;
+
+      //let galleryPosition = req.files.position
       
       // console.log(req.body.folders);
 
@@ -41,11 +55,11 @@ router.post('/', (req, res) => {
         if (err){
           return res.status(500).send(err);
         }
-        // work out order of array, and folder names coming from form.
-        const order =  1;
+        
+
         // update galleries json
         galleries[req.body.folders].push(
-            {"imageName":image.name, "galleryOrder":order }
+            {"imageName":image.name }
         )
         console.log(galleries);
         const storeData = (data) => {
@@ -56,7 +70,7 @@ router.post('/', (req, res) => {
           }
         }
         storeData(galleries);
-        
+
         //fs.writeFileSync("../public/javascripts/galleries.json", JSON.stringify(galleries));
         res.send('File uploaded!');
       });
