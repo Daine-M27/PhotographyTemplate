@@ -1,7 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    .row(style="min-height:300px")
+      .col-6
+      .col-6
+    .row(style="min-height:80px")
+      .col-12
+    .row(style="min-height:750px")
+      .col-1
+      .col-10
+        .container
+          .row(style="min-height:670px")
+            .col-12
+          .row(style="min-height:80px")
+            .col-12
+      .col-1
+  //- h1= title
+  //- p Welcome to #{title}
   //- add componenets for gallery
   //- add music controls and auto play
