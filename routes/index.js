@@ -26,7 +26,8 @@ router.get('/gallery/:gallery', function(req, res, next) {
     const imageNames = []
     let images = []
     // check if any images exist in gallery
-    if (galleries[galleryName] != undefined) {
+    console.log(galleries[galleryName].length)
+    if (galleries[galleryName].length > 0) {
       images = galleries[galleryName]
 
       if(images.length){

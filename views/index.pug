@@ -11,9 +11,9 @@ block content
           a.btn.btn-outline-dark(href="/") Home                    
           a.btn.btn-outline-dark(href="/gallery/family") Family
           a.btn.btn-outline-dark(href="/gallery/kids") Kids
-          a.btn.btn-outline-dark(href="/gallery/newborn") Newborn
-          a.btn.btn-outline-dark(href="/gallery/smokebombs") Smoke Bombs
-          a.btn.btn-outline-dark(href="/gallery/petsevents") Pets & Events
+          a.btn.btn-outline-dark(href="/gallery/newBorn") Newborn
+          a.btn.btn-outline-dark(href="/gallery/smokeBombs") Smoke Bombs
+          a.btn.btn-outline-dark(href="/gallery/petsEvents") Pets & Events
           a.btn.btn-outline-dark(href="/about") About     
           a.btn.btn-outline-dark(href="/email") Contact Us
     .row(style="min-height:540px")
@@ -21,11 +21,11 @@ block content
       .col-10
         .container
           #slideShowMain.row
-            div(style="height:600px").col-12.text-center
+            div(style="height:600px; display:flex; justify-content:center").col-12.text-center
               if galleryImages
-                img(id="mainSlide" name="slide" style="width:auto; height:100%" src=`\\images\\${gallerySelected}\\${galleryImages[0].imageName}`)
+                img(id="mainSlide" name="slide" style="height:100%" src=`\\images\\${gallerySelected}\\${galleryImages[0].imageName}`)
               else
-                img(id="mainSlide" name="slide" style="width:auto; height:100%")
+                img(id="mainSlide" name="slide" style="height:100%")
           #slideShowThumbnails.row(style="min-height:80px")
             .col-12.text-center
               .btn-group
