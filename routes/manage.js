@@ -39,11 +39,9 @@ router.post('/', (req, res) => {
     // console.log(req.files.image)
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
-      }
-    
+      }    
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       let image = req.files.image;
-
       let galleryPosition = req.body.orderNumber
       
       console.log(galleryPosition);
@@ -55,11 +53,7 @@ router.post('/', (req, res) => {
         }
         
         galleries[req.body.folders].splice(galleryPosition-1, 0, {"imageName":image.name})
-        // update galleries json
-        // galleries[req.body.folders].push(
-        //     {"imageName":image.name }
-        // )
-
+        
         console.log(galleries);
         const storeData = (data) => {
           try {
@@ -69,8 +63,7 @@ router.post('/', (req, res) => {
           }
         }
         storeData(galleries);
-
-        //fs.writeFileSync("../public/javascripts/galleries.json", JSON.stringify(galleries));
+        
         res.send('File uploaded!');
       });
 
@@ -101,6 +94,37 @@ router.post('/edit', (req, res) => {
     }
   })
   
+})
+
+router.delete('/edit/delete', (req, res) => {
+  const folderName = req.body.folderName
+  const imageName = req.body.imageName
+  // console.log(folderName + " / " + imageName)
+  readJson(filePath, (err, galleries) => {
+    // console.log(galleries)
+    var updatedGallery = function(arr, img, cb) {
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i].imageName === img) {
+          arr.splice(i, 1);
+        }
+      }
+      
+      galleries[folderName] = arr;
+      const storeData = (data) => {
+        try {
+          fs.writeFileSync("public\\javascripts\\gallery.json", JSON.stringify(data))
+        } catch (err) {
+          console.error(err)
+        }
+      }
+      storeData(galleries)
+           
+    }
+    updatedGallery(galleries[folderName], imageName)
+    //console.log(updatedGallery(galleries[folderName], imageName))
+    
+    res.send('File Deleted!')
+  })
 })
 
 router.post('/music', (req, res) => {

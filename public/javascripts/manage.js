@@ -40,7 +40,7 @@ $(document).ready(function() {
 
         updateOrderSelector(data[selection])
         console.log('updated');
-    })
+    })    
 })
 
 

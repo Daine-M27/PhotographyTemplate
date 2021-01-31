@@ -3,28 +3,29 @@ extends layout
 block content
     h1= title
     br
-    h3 Gallery File Upload
-    form.form(action="/manage", method="POST", enctype="multipart/form-data")
-        .form-group
-            input(type="hidden" id="orderValues" value=galleryOrder)
-            label(for=file) Select picture:
-            br
-            input.form-control(type="file" name="image")
-            br
-            label(for="folders") Choose a folder:
-            br
-            select.form-control( name="folders" id="uploadFolderSelect" )
-                option(value="family") Family
-                option(value="kids") Kids
-                option(value="newBorn") New Born
-                option(value="smokeBombs") Smoke Bombs
-                option(value="petsEvents") Pets and Events
-            br
-            lable(for="orderNumbers") Select Position
-            select.form-control(name="orderNumber" id="uploadOrderSelect")
-            br
-            input.btn-lg.btn(type="submit" value="submit")
-    br
+    if !editPanelImages
+        h3 Gallery File Upload
+        form.form(action="/manage", method="POST", enctype="multipart/form-data")
+            .form-group
+                input(type="hidden" id="orderValues" value=galleryOrder)
+                label(for=file) Select picture:
+                br
+                input.form-control(type="file" name="image")
+                br
+                label(for="folders") Choose a folder:
+                br
+                select.form-control( name="folders" id="uploadFolderSelect" )
+                    option(value="family") Family
+                    option(value="kids") Kids
+                    option(value="newBorn") New Born
+                    option(value="smokeBombs") Smoke Bombs
+                    option(value="petsEvents") Pets and Events
+                br
+                lable(for="orderNumbers") Select Position
+                select.form-control(name="orderNumber" id="uploadOrderSelect")
+                br
+                input.btn-lg.btn(type="submit" value="submit")
+        br
     h3 Edit Gallery
     form.form(action="/manage/edit", method="POST", enctype="multipart/form-data")
         .form-group            
@@ -46,21 +47,29 @@ block content
             .col-10
             .container
                 #slideShowThumbnails.row(style="min-height:80px")
-                .col-12.text-center
-                    //- - var images = [galleryImages]
-                    each image in editPanelImages
-                        button.btn.p-0.m-0
-                            img.p-0.m-0(src=`\\images\\${gallerySelected}\\${image.imageName}` style="width:80px; height:80px; object-fit:cover")
+                    .col-12.text-center
+                        //- - var images = [galleryImages]
+                        each image in editPanelImages
+                            div(id=image.imageName style="display:inline-block").deleteContainer
+                                button.btn.p-0.m-0
+                                    img.p-0.m-0(src=`\\images\\${gallerySelected}\\${image.imageName}` style="width:80px; height:80px; object-fit:cover")
+                                br
+                                button(data-folder=`${gallerySelected}` data-image=`${image.imageName}`).delete.btn.p-0.m-0 DELETE
             .col-1
     br
-
-    h3 Gallery Music Upload
-    form.form(action="/manage/music" method="POST", enctype="multipart/form-data")
-        .form-group
-            label(for=music) Select MP3
-            br
-            input.form-control(type="file" name="music")
-            input.btn-lg.btn(type="submit" value="submit")
+    if !editPanelImages
+        h3 Gallery Music Upload
+        form.form(action="/manage/music" method="POST", enctype="multipart/form-data")
+            .form-group
+                label(for=music) Select MP3
+                br
+                input.form-control(type="file" name="music")
+                input.btn-lg.btn(type="submit" value="submit")
     
-    append head
-        script(src='/javascripts/manage.js')
+    if !editPanelImages
+        append head
+            script(src='/javascripts/manage.js')
+
+    if editPanelImages
+        append head
+            script(src='/javascripts/editGallery.js')
