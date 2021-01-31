@@ -41,17 +41,6 @@ router.get('/gallery/:gallery', function(req, res, next) {
       imageNames.push({'imageName':'default.jpg'});
       res.render('index', { title: req.params.gallery, galleryImages:imageNames, gallerySelected:"default" })
     }
-
-    
-    
-    //console.log(imageNames);
-    
-    // let keys = Object.keys(galleries);
-    // keys.forEach(key => {
-    //   galleryCounts[key] = galleries[key].length
-    // });
-    // console.log(galleryCounts);
-    // res.render('manage', { title: 'Site Manager', galleryOrder: JSON.stringify(galleryCounts) });
   })
 
   

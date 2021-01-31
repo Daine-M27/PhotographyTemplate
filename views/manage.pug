@@ -26,21 +26,34 @@ block content
             input.btn-lg.btn(type="submit" value="submit")
     br
     h3 Edit Gallery
-    form.form(action="/manage", method="Delete", enctype="multipart/form-data")
+    form.form(action="/manage/edit", method="POST", enctype="multipart/form-data")
         .form-group            
-            label(for="folders") Choose a folder:
+            label(for="editFolders") Choose a folder:
             br
-            select.form-control( name="folders" )
+            select.form-control( name="editFolders" )
                 option(value="family") Family
                 option(value="kids") Kids
-                option(value="newborn") New Born
-                option(value="smokebombs") Smoke Bombs
+                option(value="newBorn") New Born
+                option(value="smokeBombs") Smoke Bombs
                 option(value="petsEvents") Pets and Events
             br
             
             //- render gallery with controls for order and delete once folder is selected
             input.btn-lg.btn(type="submit" value="submit")
+    #editGalleryPanel.row
+        if editPanelImages
+            .col-1
+            .col-10
+            .container
+                #slideShowThumbnails.row(style="min-height:80px")
+                .col-12.text-center
+                    //- - var images = [galleryImages]
+                    each image in editPanelImages
+                        button.btn.p-0.m-0
+                            img.p-0.m-0(src=`\\images\\${gallerySelected}\\${image.imageName}` style="width:80px; height:80px; object-fit:cover")
+            .col-1
     br
+
     h3 Gallery Music Upload
     form.form(action="/manage/music" method="POST", enctype="multipart/form-data")
         .form-group

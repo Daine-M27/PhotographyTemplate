@@ -28,10 +28,8 @@ router.get('/', (req, res) => {
       galleryCounts[key] = galleries[key].length
     });
     console.log(galleryCounts);
-    res.render('manage', { title: 'Site Manager', galleryOrder: JSON.stringify(galleryCounts) });
-  })
-
-    
+    res.render('manage', { title: 'Site Manager', galleryOrder: JSON.stringify(galleryCounts), editPanelImages:null, gallerySelected:null });
+  })  
     
 })
 
@@ -81,8 +79,28 @@ router.post('/', (req, res) => {
 });
 
 router.post('/edit', (req, res) => {
-  // use image name and folder name to find and delete with fs
-  res.send('Image deleted!')
+  const galleryName = req.body.editFolders
+  readJson(filePath, (err, galleries) => {
+    // let images = Object.keys(galleries[galleryName])
+    const imageNames = []
+    let images = []
+    // check if any images exist in gallery
+    
+    if (galleries[galleryName].length > 0) {
+      images = galleries[galleryName]
+
+      if(images.length){
+        images.forEach(image => {
+          imageNames.push({'imageName':image.imageName})
+        });
+      }
+      res.render('manage', { title: 'Site Manager', editPanelImages:imageNames, gallerySelected:galleryName });
+    }
+    else {      
+      res.render('manage', { title: 'Site Manager', editPanelImages:null, gallerySelected:null });
+    }
+  })
+  
 })
 
 router.post('/music', (req, res) => {
