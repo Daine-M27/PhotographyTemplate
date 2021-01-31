@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 // const multer = require('multer');
-//const path = require('path');
+const path = require('path');
 // const fileUpload = require('express-fileupload');
 
 const filePath = '../public/javascripts/gallery'
