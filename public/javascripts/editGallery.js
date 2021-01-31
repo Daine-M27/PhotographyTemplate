@@ -18,6 +18,7 @@ function deleteImage(folderName, imageName){
         },
         dataType:'text',
         success: function(data){
+            document.getElementById(imageName).remove();
             alert(data)
         }
         // error : function(request,error)

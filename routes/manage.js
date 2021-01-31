@@ -64,9 +64,7 @@ router.post('/', (req, res) => {
         }
         storeData(galleries);
         
-
-
-        res.send('File uploaded!');
+        res.redirect('/manage');
       });
 
   })
@@ -92,7 +90,7 @@ router.post('/edit', (req, res) => {
       res.render('manage', { title: 'Site Manager', editPanelImages:imageNames, gallerySelected:galleryName });
     }
     else {      
-      res.render('manage', { title: 'Site Manager', editPanelImages:null, gallerySelected:null });
+      res.redirect('/manage');
     }
   })
   
@@ -126,6 +124,7 @@ router.delete('/edit/delete', (req, res) => {
       storeData(galleries)      
     }
     updatedGallery(galleries[folderName], imageName)
+    
     
     res.send('File Deleted!')
   })
