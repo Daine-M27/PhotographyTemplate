@@ -146,7 +146,7 @@ router.post('/music', (req, res) => {
       if (err)
         return res.status(500).send(err);
   
-      res.send('File uploaded!');
+        res.redirect('/manage');
     });
 });
 
