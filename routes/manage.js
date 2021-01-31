@@ -64,6 +64,8 @@ router.post('/', (req, res) => {
         }
         storeData(galleries);
         
+
+
         res.send('File uploaded!');
       });
 
@@ -100,6 +102,8 @@ router.delete('/edit/delete', (req, res) => {
   const folderName = req.body.folderName
   const imageName = req.body.imageName
   // console.log(folderName + " / " + imageName)
+  
+  // read json and delete image from order
   readJson(filePath, (err, galleries) => {
     // console.log(galleries)
     var updatedGallery = function(arr, img, cb) {
@@ -107,21 +111,21 @@ router.delete('/edit/delete', (req, res) => {
         if (arr[i].imageName === img) {
           arr.splice(i, 1);
         }
-      }
-      
+      }      
       galleries[folderName] = arr;
       const storeData = (data) => {
         try {
-          fs.writeFileSync("public\\javascripts\\gallery.json", JSON.stringify(data))
+          // overwrite order file
+          fs.writeFileSync("public\\javascripts\\gallery.json", JSON.stringify(data));
+          //delete file from images
+          fs.unlinkSync(`public\\images\\${folderName}\\${imageName}`);
         } catch (err) {
           console.error(err)
         }
       }
-      storeData(galleries)
-           
+      storeData(galleries)      
     }
     updatedGallery(galleries[folderName], imageName)
-    //console.log(updatedGallery(galleries[folderName], imageName))
     
     res.send('File Deleted!')
   })
